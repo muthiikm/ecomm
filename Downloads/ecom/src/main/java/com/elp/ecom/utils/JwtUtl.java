@@ -1,5 +1,6 @@
 package com.elp.ecom.utils;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import sun.jvm.hotspot.debugger.cdbg.Sym;
 
@@ -55,6 +56,11 @@ private Boolean isTokenExpired( String token){
 //implementation of extract expiration
     private Date extractExpiration(String token){
         return extractClaim(token, claims::getExpiration)
+    }
+    //validation
+    public Boolean validateToken(String token, UserDetails userDetails){
+        final String userName = extractUserName(token);
+        return (username.equals(userDetails.getUsername()) && ! isTokenExpired(token));
     }
 
 }
