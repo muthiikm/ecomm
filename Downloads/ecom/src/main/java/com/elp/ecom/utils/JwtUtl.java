@@ -31,5 +31,17 @@ public class JwtUtl {
     private Key getSignKey(){
 
         byte[]keybytes = Decoders.BASE64.decode(SECRET);
+        return Keys.hmacShaKeyFor(keybytes);
     }
+
+    public String extractUserName(String token){
+
+        return extractUserName(token, Class::getSubject);
+    }
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
+
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
 }
