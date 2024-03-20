@@ -38,16 +38,23 @@ public class JwtUtl {
 
         return extractUserName(token, Class::getSubject);
     }
+    //implementation of claims
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
 
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+    //implementation of extract expiration
 private Claims extractAllClaims(String token){
         return Jwts.parserBuilder().setSigningKey(getSignKey().build().parseClaimsJws(token).getBody());
 }
-
+//Extract expiration
 private Boolean isTokenExpired( String token){
         return extractExpiration(token).before(new Date());
 }
+//implementation of extract expiration
+    private Date extractExpiration(String token){
+        return extractClaim(token, claims::getExpiration)
+    }
+
 }
