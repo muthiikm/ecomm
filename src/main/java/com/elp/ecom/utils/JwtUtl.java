@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.security.KeyStore;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;

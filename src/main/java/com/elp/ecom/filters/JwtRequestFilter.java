@@ -1,5 +1,6 @@
 package com.elp.ecom.filters;
 
+import com.elp.ecom.services.jwt.UserDetailsServiceImpl;
 import com.elp.ecom.utils.JwtUtl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,9 +21,13 @@ import java.io.IOException;
 
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final UserDetailsServiceImp userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final JwtUtl jwtUtl;
 
+    public JwtRequestFilter(UserDetailsServiceImpl userDetailsService, JwtUtl jwtUtl) {
+        this.userDetailsService = userDetailsService;
+        this.jwtUtl = jwtUtl;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
